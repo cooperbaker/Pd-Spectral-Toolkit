@@ -1,0 +1,5 @@
+#N canvas 1093 179 450 300 10;
+#X declare -lib pd_spectral_toolkit;
+#X obj 100 124 declare -lib pd_spectral_toolkit;
+#X text 101 100 www.cooperbaker.com/pd-spectral-toolkit;
+#X coords 0 -1 1 1 238 16 2 100 100;

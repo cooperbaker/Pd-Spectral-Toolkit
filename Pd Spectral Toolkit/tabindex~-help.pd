@@ -1,0 +1,68 @@
+#N canvas 548 57 447 523 10;
+#X obj 99 481 link;
+#X obj 20 56 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 320 25 graph;
+#X text 124 127 inlet 1: signal;
+#X obj 33 27 tabindex~;
+#X text 101 26 Table Index;
+#X text 124 144 inlet 2: sample index;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array data_array 64 float 3;
+#A 0 0.521609 0.77009 0.696389 0.664556 0.532688 0.641522 0.583156
+0.63818 0.729882 0.652781 0.783767 0.820076 0.671031 0.600665 0.953825
+0.607594 0.65476 0.855608 0.634838 0.862284 0.807449 0.554574 0.839474
+0.529003 0.651469 0.590192 0.794448 0.631467 0.726905 0.827465 0.79969
+0.561778 0.702596 0.941359 0.565377 0.568948 0.910317 0.75889 0.586686
+0.547318 0.617895 0.550946 0.55818 0.628091 0.572516 0.782142 0.525317
+0.624713 0.536363 0.667793 0.889499 0.720908 0.971353 0.925799 0.723924
+0.91737 0.621304 0.604139 0.747457 0.611036 0.930647 0.881432 0.59719
+0.543677;
+#X coords 0 1 64 -1 128 64 1 0 0;
+#X restore 90 393 graph;
+#X obj 293 265 noise~;
+#X obj 293 287 sigtoctl~;
+#X obj 192 309 bang~;
+#X obj 128 340 tabindex~ data_array;
+#X msg 192 265 clear \$1;
+#X obj 192 243 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 54 75 Writes signal values into a table at arbitrary locations
+and optionally clears the array at the start of each signal vector
+;
+#X text 126 178 message: "clear x" ( where x is 0 or 1 );
+#X text 126 195 message: "set array_name";
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array array_data 64 float 2;
+#X coords 0 1 64 -1 128 64 1 0 0;
+#X restore 222 393;
+#X msg 192 287 set array_data;
+#X text 126 161 arguments: array_name \, clear;
+#X text 126 212 message: "bang" ( redraws array );
+#X obj 293 311 *~ 64;
+#X obj 128 265 osc~ 30.5;
+#X connect 8 0 9 0;
+#X connect 9 0 21 0;
+#X connect 10 0 11 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 0;
+#X connect 18 0 11 0;
+#X connect 21 0 11 1;
+#X connect 22 0 11 0;

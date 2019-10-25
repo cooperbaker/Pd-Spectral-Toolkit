@@ -1,0 +1,88 @@
+#N canvas 527 46 631 604 10;
+#X obj 196 562 link;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array input_mag 32 float 3;
+#A 0 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44
+46 48 50 52 54 56 58 60 62;
+#X coords 0 64 32 -1 128 66 1 0 0;
+#X restore 50 180 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array input_freq 32 float 3;
+#A 0 0 344.531 689.062 1033.59 1378.12 1722.66 2067.19 2411.72 2756.25
+3100.78 3445.31 3789.84 4134.38 4478.91 4823.44 5167.97 5512.5 5857.03
+6201.56 6546.09 6890.62 7235.16 7579.69 7924.22 8268.75 8613.28 8957.81
+9302.34 9646.88 9991.41 10335.9 10680.5;
+#X coords 0 22050 32 -343 128 66 1 0 0;
+#X restore 184 180 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array output_mag 32 float 3;
+#A 0 2 6 10 14 18 22 26 30 34 38 42 46 50 54 58 62 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0;
+#X coords 0 64 32 -1 128 66 1 0 0;
+#X restore 50 465 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array output_freq 32 float 3;
+#A 0 344.531 1033.59 1722.66 2411.72 3100.78 3789.84 4478.91 5167.97
+5857.03 6546.09 7235.16 7924.22 8613.28 9302.34 9991.41 10680.5 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 22050 32 -343 128 66 1 0 0;
+#X restore 184 465 graph;
+#X obj 50 263 tabreceive~ input_mag;
+#X obj 184 263 tabreceive~ input_freq;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array unused_mag 32 float 3;
+#A 0 0 0 4 0 8 0 12 0 16 0 20 0 24 0 28 0 32 0 36 0 40 0 44 0 48 0
+52 0 56 0 60 0;
+#X coords 0 64 32 -1 128 66 1 0 0;
+#X restore 318 465 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array unused_freq 32 float 3;
+#A 0 0 0 689.062 0 1378.12 0 2067.19 0 2756.25 0 3445.31 0 4134.38
+0 4823.44 0 5512.5 0 6201.56 0 6890.62 0 7579.69 0 8268.75 0 8957.81
+0 9646.88 0 10335.9 0;
+#X coords 0 22050 32 -343 128 66 1 0 0;
+#X restore 452 465 graph;
+#X obj 50 422 tabwrite~ output_mag;
+#X obj 181 422 tabwrite~ output_freq;
+#X obj 318 422 tabwrite~ unused_mag;
+#X obj 449 422 tabwrite~ unused_freq;
+#X obj 26 57 cnv 2 575 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#X obj 50 336 freqsieve~ unused;
+#X text 359 212 inlet 3: overlap factor;
+#X text 358 178 inlet 1: magnitude;
+#X text 358 195 inlet 2: frequency;
+#X text 359 229 outlet 1: magnitude;
+#X text 359 246 outlet 2: frequency;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 490 28 graph;
+#X obj 50 30 freqsieve~;
+#X text 129 29 Frequency Sieve;
+#X text 359 263 1 argument: "unused" \, or overlap factor;
+#X text 359 279 2 arguments: "unused" and overlap factor;
+#X text 51 74 Assigns spectral frequency data to its proper bins based
+on frequency and magnitude. The frequency of greatest magnitude for
+each bin is selected and all other frequencies are ignored. An optional
+"unused" argument causes the object to output the ignored data.;
+#X connect 5 0 14 0;
+#X connect 6 0 14 1;
+#X connect 14 0 9 0;
+#X connect 14 1 10 0;
+#X connect 14 2 11 0;
+#X connect 14 3 12 0;

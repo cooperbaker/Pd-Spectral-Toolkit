@@ -1,0 +1,75 @@
+#N canvas 553 50 453 548 10;
+#X obj 110 506 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array min_data_a 64 float 1;
+#A 0 0.778682 0.747432 0.700557 0.653682 0.638057 0.630244 0.622432
+0.622432 0.638057 0.731807 0.294307 0.059932 0.294307 0.434932 0.544307
+0.653682 0.700557 0.700557 0.575557 0.575557 0.591182 0.622432 0.700557
+0.778682 0.622432 0.419307 0.388057 0.388057 0.388057 0.419307 0.434932
+0.450557 0.450557 0.544307 0.591182 0.653682 0.700557 0.716182 0.700557
+0.700557 0.684932 0.591182 0.622432 0.684932 0.731807 0.763057 0.778682
+0.825557 0.872432 0.888057 0.888057 0.856807 0.591182 0.575557 0.575557
+0.575557 0.575557 0.575557 0.575557 0.591182 0.622432 0.638057 0.653682
+0.653682;
+#X coords 0 1 63 0 128 64 1 0 0;
+#X restore 101 256 graph;
+#X obj 152 450 monitor~;
+#X floatatom 152 472 5 0 0 0 - - -;
+#X obj 206 450 monitor~;
+#X floatatom 206 472 5 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array min_data_b 64 float 1;
+#A 0 0.470856 0.564606 0.611481 0.611481 0.619294 0.627106 0.650544
+0.502106 0.533356 0.470856 0.470856 0.517731 0.564606 0.584137 0.603669
+0.6232 0.642731 0.377106 0.361481 0.392731 0.423981 0.267731 0.345856
+0.3732 0.400544 0.427887 0.455231 0.502106 0.486481 0.455231 0.455231
+0.465648 0.476064 0.486481 0.533356 0.580231 0.621898 0.689606 0.720856
+0.736481 0.736481 0.533356 0.517731 0.517731 0.439606 0.298981 0.298981
+0.298981 0.322419 0.345856 0.382314 0.418773 0.517731 0.517731 0.533356
+0.533356 0.541169 0.548981 0.517731 0.517731 0.502106 0.517731 0.517731
+0.736481;
+#X coords 0 1 63 0 128 64 1 0 0;
+#X restore 232 256 graph;
+#X obj 260 450 monitor~;
+#X floatatom 260 472 5 0 0 0 - - -;
+#X text 143 184 outlet 2: associated b value;
+#X text 143 132 inlet 1: signal block a;
+#X text 143 149 inlet 2: signal block b;
+#X obj 191 374 tabreceive~ min_data_b;
+#X obj 152 353 tabreceive~ min_data_a;
+#X obj 152 407 binmin~;
+#X obj 37 28 binmin~;
+#X text 95 27 Bin Minimum;
+#X text 66 79 Outputs the minimum sample a value \, associated sample
+b value \, and the index location of sample a and b for each signal
+block;
+#X text 143 167 outlet 1: minimum a value;
+#X text 143 201 outlet 3: index of a and b values;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 9 0 10 0;
+#X connect 14 0 16 1;
+#X connect 15 0 16 0;
+#X connect 16 0 4 0;
+#X connect 16 1 6 0;
+#X connect 16 2 9 0;

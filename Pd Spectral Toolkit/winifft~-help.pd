@@ -1,0 +1,100 @@
+#N canvas 548 68 447 572 10;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X text 149 176 inlet 1: real values;
+#X text 149 193 inlet 2: imaginary values;
+#X obj 176 353 bang~;
+#N canvas 0 22 450 300 fft_data 0;
+#X obj 187 146 outlet~;
+#X obj 274 146 outlet~;
+#X obj 187 76 ctltosig~;
+#X obj 187 46 phasor~ 688.8;
+#X obj 187 110 pafft~ rect_win;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;
+#X connect 4 1 1 0;
+#X restore 162 288 pd fft_data;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array rect_win 64 float 1;
+#A 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+#X coords 0 1.2 63 0 63 16 1 0 0;
+#X restore 279 292 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array rifftwin_scope 64 float 1;
+#A 0 0.66104 0.692278 0.723516 0.754754 0.785993 0.817231 0.848469
+0.879707 0.910945 0.942183 0.973421 -0.995341 -0.964103 -0.932864 -0.901626
+-0.870388 -0.83915 -0.807912 -0.776674 -0.745436 -0.714198 -0.68296
+-0.651722 -0.620483 -0.589245 -0.558007 -0.526769 -0.495531 -0.464293
+-0.433055 -0.401817 -0.370579 -0.339341 -0.308103 -0.276864 -0.245626
+-0.214388 -0.18315 -0.151912 -0.120674 -0.0894359 -0.0581978 -0.0269597
+0.00427824 0.0355165 0.0667546 0.0979926 0.129231 0.160469 0.191707
+0.222945 0.254183 0.285421 0.316659 0.347897 0.379135 0.410374 0.441612
+0.47285 0.504088 0.535326 0.566564 0.597802 0.62904;
+#X coords 0 1 63 -1 128 64 1 0 0;
+#X restore 166 446 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array hann_win 64 float 1;
+#A 0 0 0.00248459 0.00991374 0.0222136 0.0392619 0.0608892 0.0868806
+0.116978 0.150882 0.188255 0.228727 0.271895 0.31733 0.36458 0.413176
+0.462635 0.512465 0.562172 0.61126 0.659243 0.705644 0.75 0.791872
+0.830843 0.866526 0.898566 0.926645 0.950484 0.969846 0.984539 0.994415
+0.999378 0.999378 0.994415 0.984539 0.969846 0.950484 0.926645 0.898566
+0.866526 0.830843 0.791872 0.75 0.705644 0.659243 0.611261 0.562172
+0.512465 0.462635 0.413176 0.36458 0.317329 0.271895 0.228727 0.188255
+0.150882 0.116978 0.0868806 0.0608892 0.0392619 0.0222136 0.00991374
+0.00248462 0;
+#X coords 0 1 63 0 63 16 1 0 0;
+#X restore 279 325 graph;
+#X msg 79 288 set hann_win;
+#X obj 162 382 tabwrite~ rifftwin_scope;
+#X text 150 210 outlet: audio signal;
+#X obj 37 28 winifft~;
+#X text 109 27 Windowed IFFT;
+#X obj 162 325 winifft~ rect_win;
+#N canvas 1002 108 242 339 winifft_diagram 1;
+#X obj 32 18 inlet~;
+#X obj 74 18 inlet~;
+#X obj 32 78 rifft~;
+#X obj 32 156 *~;
+#X obj 47 202 r window_size;
+#X obj 32 236 /~;
+#X obj 32 295 outlet~;
+#X obj 47 127 tabreceive~ hann_win;
+#X connect 0 0 2 0;
+#X connect 1 0 2 1;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 6 0;
+#X connect 7 0 3 1;
+#X restore 173 140 pd winifft_diagram;
+#X text 150 227 argument: array_name (window array);
+#X text 150 244 message: "set array_name";
+#X text 51 79 Performs a real inverse fast fourier transform then applies
+a window function and normalizes output;
+#X text 194 538 www.cooperbaker.com/pd-spectral-toolkit;
+#X connect 4 0 10 0;
+#X connect 5 0 14 0;
+#X connect 5 1 14 1;
+#X connect 9 0 14 0;
+#X connect 14 0 10 0;

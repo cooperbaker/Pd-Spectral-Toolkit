@@ -1,0 +1,68 @@
+#N canvas 571 52 454 726 10;
+#X obj 101 691 link;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array a_original 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 10 12 14 16 10 12 14 16 10 12 14 16 10 12
+14 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0;
+#X coords 0 63 64 -1 128 128 1 0 0;
+#X restore 89 255 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array b_original 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0;
+#X coords 0 63 64 -1 128 128 1 0 0;
+#X restore 228 255 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array a_mixed 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 12 14 16 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 63 64 -1 128 128 1 0 0;
+#X restore 89 522 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array b_mixed 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 28 32 36 40 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 63 64 -1 128 128 1 0 0;
+#X restore 228 522 graph;
+#X obj 89 437 binmix~;
+#X obj 89 390 tabreceive~ a_original;
+#X obj 228 390 tabreceive~ b_original;
+#X obj 228 486 tabsend~ b_mixed;
+#X obj 89 486 tabsend~ a_mixed;
+#X obj 26 49 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 326 18 graph;
+#X text 57 66 Mixes inlet 2 values for all matching inlet 1 values.
+Mixed values are placed into location of largest inlet 2 value and
+all others are zeroed. Operates on one signal vector at a time.;
+#X text 142 141 inlet 1: a values;
+#X text 142 158 inlet 2: b values;
+#X text 143 175 outlet 1: mixed a values;
+#X text 143 192 outlet 2: mixed b values;
+#X obj 39 20 binmix~;
+#X text 96 19 Bin Mixer;
+#X connect 5 0 9 0;
+#X connect 5 1 8 0;
+#X connect 6 0 5 0;
+#X connect 7 0 5 1;

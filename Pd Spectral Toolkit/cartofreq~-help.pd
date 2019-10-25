@@ -1,0 +1,45 @@
+#N canvas 528 43 456 444 10;
+#X obj 103 399 link;
+#X obj 23 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 323 26 graph;
+#X obj 36 28 cartofreq~;
+#X text 113 27 Cartesian to Frequency;
+#X text 145 142 inlet 2: imaginary values;
+#X text 146 159 inlet 3: overlap factor;
+#X text 146 210 argument: overlap factor;
+#X text 146 193 outlet 2: frequency;
+#X text 146 176 outlet 1: magnitude;
+#X floatatom 240 357 5 0 0 0 - - -;
+#X obj 240 335 binmonitor~ 1;
+#X floatatom 156 357 5 0 0 0 - - -;
+#X obj 156 335 binmonitor~ 1;
+#X obj 156 266 sig~ 1;
+#X obj 200 266 sig~ 1;
+#X obj 156 301 cartofreq~;
+#X text 145 125 inlet 1: real value;
+#X text 48 74 Converts cartesian coordinates to magnitude and frequency
+pairs;
+#X connect 11 0 10 0;
+#X connect 13 0 12 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 1;
+#X connect 16 0 13 0;
+#X connect 16 1 11 0;

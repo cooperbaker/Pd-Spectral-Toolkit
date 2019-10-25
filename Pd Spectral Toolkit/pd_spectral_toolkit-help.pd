@@ -1,0 +1,198 @@
+#N canvas 0 23 503 695 10;
+#N canvas 309 163 444 311 about 0;
+#X text 33 29 The Pd Spectral Toolkit facilitates frequency domain
+signal processing with a family of spectral transformation \, calculation
+\, and data manipulation objects. These objects implement low-level
+algorithms that simplify patches by handling the complex math and data
+manipulation commonly required for spectral signal processing.;
+#X text 34 115 The toolkit was created by Cooper Baker in 2013 \, with
+generous support from a University of California San Diego research
+grant supervised by Tom Erbe. In 2019 the project was updated as a
+cross-platform library and added to Pd's external object management
+system. Special thanks to Miller Puckette for invaluable insight regarding
+spectral math and the Pd api.;
+#X obj 90 240 link;
+#X restore 115 54 pd about;
+#X text 7 100 ---------------- COMPARISON ----------------;
+#X text 7 348 ----------------- OPERATOR -----------------;
+#X text 7 617 ---------------- CONVERSION ----------------;
+#X text 7 1201 ----------------- SPECTRAL -----------------;
+#X obj 10 129 !&&~;
+#X text 92 128 - logical not and;
+#X obj 10 150 !=~;
+#X text 92 149 - logical not equal;
+#X obj 10 171 !||~;
+#X text 92 170 - logical not or;
+#X obj 10 192 &&~;
+#X text 92 191 - logical and;
+#X obj 10 213 <=~;
+#X text 92 212 - logical less than or equal;
+#X obj 10 234 <~;
+#X text 92 233 - logical less than;
+#X obj 10 255 ==~;
+#X text 92 254 - logical equal;
+#X obj 10 276 >=~;
+#X text 92 275 - logical greater than or equal;
+#X obj 10 297 >~;
+#X text 92 296 - logical greater than;
+#X text 92 317 - logical or;
+#X text 92 376 - not;
+#X obj 10 377 !~;
+#X obj 10 398 %~;
+#X text 92 397 - modulo;
+#X obj 10 419 cmplxabs~;
+#X text 92 418 - complex absolute value;
+#X obj 10 440 cmplxadd~;
+#X text 92 439 - complex addition;
+#X obj 10 461 cmplxdiv~;
+#X text 92 460 - complex division;
+#X obj 10 482 cmplxmult~;
+#X text 92 481 - complex multiplication;
+#X obj 10 503 cmplxsqrt~;
+#X text 92 502 - complex square root;
+#X obj 10 524 cmplxsub~;
+#X text 92 523 - complex subtraction;
+#X obj 10 545 recip~;
+#X text 92 544 - reciprocal calculation;
+#X obj 10 566 rounder~;
+#X text 92 565 - rounds decimal values to specified precision;
+#X obj 10 587 trunc~;
+#X text 92 586 - truncates decimal values to specified precision;
+#X obj 10 646 amptodb~;
+#X obj 10 667 amptomag~;
+#X obj 10 688 cartoamp~;
+#X obj 10 709 cartodb~;
+#X text 92 645 - amplitude to dB-FS decibels;
+#X text 92 666 - amplitude to magnitude;
+#X obj 10 730 cartofreq~;
+#X obj 10 751 cartomag~;
+#X obj 10 772 cartophase~;
+#X obj 10 793 cartopolar~;
+#X obj 10 814 ctltosig~;
+#X text 92 813 - control range to signal range;
+#X obj 10 835 dbtoamp~;
+#X text 92 834 - dB-FS decibels to amplitude;
+#X obj 10 856 dbtomag~;
+#X text 92 855 - dB-FS decibels to magnitude;
+#X text 92 876 - degrees to radians;
+#X obj 10 877 degtorad~;
+#X obj 10 898 degtoturn~;
+#X text 92 897 - degrees to turns;
+#X obj 10 919 freqtocar~;
+#X text 92 687 - cartesian coordinates to amplitude;
+#X text 92 708 - cartesian coordinates to dB-FS decibels;
+#X text 92 729 - cartesian coordinates to magnitude and frequency pairs
+;
+#X text 92 750 - cartesian coordinates to magnitude;
+#X text 92 771 - cartesian coordinates to phase;
+#X text 92 792 - cartesian coordinates to polar coordinates;
+#X text 92 918 - magnitude and frequency pairs to cartesian coordinates
+;
+#X obj 10 940 freqtophase~;
+#X text 92 939 - frequency to phase;
+#X obj 10 961 freqtopolar~;
+#X text 92 960 - magnitude and frequency pairs to polar coordinates
+;
+#X obj 10 982 magtoamp~;
+#X obj 10 1003 magtodb~;
+#X text 92 981 - magnitude to amplitude;
+#X text 92 1002 - magnitude to dB-FS decibels;
+#X obj 10 1024 phasetofreq~;
+#X text 92 1023 - phase to frequency;
+#X obj 10 1045 polartocar~;
+#X text 92 1044 - polar coordinates to cartesian coordinates;
+#X text 92 1065 - polar coordinates to magnitude and frequency pairs
+;
+#X obj 10 1087 radtodeg~;
+#X text 92 1086 - radians to degrees;
+#X obj 10 1108 radtoturn~;
+#X text 92 1107 - radians to turns;
+#X obj 10 1129 sigtoctl~;
+#X text 92 1128 - signal range to control range;
+#X obj 10 1150 turntodeg~;
+#X text 92 1149 - turns to degrees;
+#X obj 10 1171 turntorad~;
+#X text 92 1170 - turns to radians;
+#X obj 10 1230 binindex~;
+#X text 92 1229 - ramp from 0 to block size - 1 during each signal
+block;
+#X obj 10 1251 binmax~;
+#X obj 10 1272 binmin~;
+#X text 92 1271 - minimum bin value and associated data per block;
+#X text 92 1250 - maximum bin value and associated data per block;
+#X obj 10 1293 binmix~;
+#X text 92 1292 - mixes in 2 values for matching in 1 values \, zeroes
+others;
+#X obj 10 1314 binmonitor~;
+#X text 92 1313 - outputs a float representing the value of a bin per
+block;
+#X obj 10 1335 binsort~;
+#X text 92 1334 - sorts spectral data in ascending or descending order
+;
+#X obj 10 1356 bintrim~;
+#X text 92 1355 - zeroes bin values outside of a specified range;
+#X obj 10 1377 blocksmooth~;
+#X text 92 1376 - replaces zeros with preceeding non-zero values per
+block;
+#X obj 10 1398 freqsieve~;
+#X text 92 1397 - assigns frequencies and magnitudes to proper bins
+;
+#X obj 10 1419 fundfreq~;
+#X text 92 1418 - most prominent fundamental frequency per block;
+#X obj 10 1440 harmprod~;
+#X text 92 1439 - harmonic product spectrum;
+#X obj 10 1461 magtrim~;
+#X text 92 1460 - zeroes bin values outside of a specified magnitude
+range;
+#X obj 10 1482 oscbank~;
+#X text 92 1481 - oscillator bank for spectral resynthesis;
+#X obj 10 1503 pafft~;
+#X text 92 1502 - windowed phase aligned real FFT;
+#X text 92 1523 - windowed normalized phase aligned real IFFT;
+#X obj 10 1524 paifft~;
+#X obj 10 1545 partconv~;
+#X text 92 1544 - partitioned convolution with cartesian coordinates
+;
+#X obj 10 1566 peaks~;
+#X text 92 1565 - finds spectral peaks and zeroes all other data;
+#X obj 10 1587 phaseaccum~;
+#X text 92 1586 - running phase sums for each bin per block;
+#X obj 10 1608 phasedelta~;
+#X text 92 1607 - phase deviation for each bin per block;
+#X obj 10 1629 piwrap~;
+#X text 92 1628 - wraps a signal between -pi and pi;
+#X obj 10 1650 rotate~;
+#X text 92 1649 - rotates samples in a signal vector per block;
+#X obj 10 1671 valleys~;
+#X text 92 1670 - finds spectral valleys and zeroes all other data
+;
+#X obj 10 1692 windower;
+#X text 92 1691 - writes various window functions into arrays;
+#X obj 10 1713 winfft~;
+#X text 92 1712 - windowed real FFT;
+#X obj 10 1734 winifft~;
+#X text 92 1733 - windowed normalized real IFFT;
+#X obj 10 1793 bitsafe~;
+#X text 92 1792 - fixes infinity and not a number values;
+#X obj 10 1814 countwrap;
+#X text 92 1813 - bang driven wrapping counter;
+#X obj 10 1835 dspbang~;
+#X text 92 1834 - bang dsp is turned on or recompiled;
+#X text 92 1855 - samples a signal and outputs a float every 20 milliseconds
+;
+#X obj 10 1856 monitor~;
+#X obj 10 1877 rgbtable;
+#X text 92 1876 - outputs red \, green \, and blue values based on
+input value;
+#X obj 10 1898 scale~;
+#X text 92 1897 - scales values from one range to another;
+#X obj 10 1919 softclip~;
+#X text 92 1918 - soft clipping waveshaper;
+#X obj 10 1940 tabindex~;
+#X text 92 1939 - writes table values at index location;
+#X text 92 1960 - command line shell interface;
+#X text 7 1764 ------------------- MISC -------------------;
+#X obj 10 1961 terminal;
+#X text 47 20 Pd Spectral Toolkit Object List;
+#X obj 10 1066 polartofreq~;
+#X obj 10 318 ||~;

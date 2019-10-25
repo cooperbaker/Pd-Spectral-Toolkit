@@ -1,0 +1,68 @@
+#N canvas 575 110 448 474 10;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X text 151 175 inlet 1: audio signal;
+#X floatatom 133 380 5 0 0 0 - - -;
+#X obj 133 358 binmonitor~ 1;
+#X floatatom 238 380 5 0 0 0 - - -;
+#X obj 238 358 binmonitor~ 1;
+#X obj 133 292 phasor~ 689;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array hann_array 64 float 1;
+#A 0 0 0.00248459 0.00991374 0.0222136 0.0392619 0.0608892 0.0868806
+0.116978 0.150882 0.188255 0.228727 0.271895 0.31733 0.36458 0.413176
+0.462635 0.512465 0.562172 0.61126 0.659243 0.705644 0.75 0.791872
+0.830843 0.866526 0.898566 0.926645 0.950484 0.969846 0.984539 0.994415
+0.999378 0.999378 0.994415 0.984539 0.969846 0.950484 0.926645 0.898566
+0.866526 0.830843 0.791872 0.75 0.705644 0.659243 0.611261 0.562172
+0.512465 0.462635 0.413176 0.36458 0.317329 0.271895 0.228727 0.188255
+0.150882 0.116978 0.0868806 0.0608892 0.0392619 0.0222136 0.00991374
+0.00248462 0;
+#X coords 0 1 63 0 63 16 1 0 0;
+#X restore 263 326 graph;
+#X text 151 192 outlet 1: real values;
+#X text 152 209 outlet 2: imaginary values;
+#X obj 37 28 winfft~;
+#X text 103 27 Windowed FFT;
+#N canvas 514 145 281 304 winfft_diagram 0;
+#X obj -42 168 rfft~;
+#X obj -42 110 *~;
+#X obj -42 47 inlet~;
+#X obj -42 232 outlet~;
+#X obj 7 232 outlet~;
+#X obj 1 47 tabreceive~ hann_array;
+#X connect 0 0 3 0;
+#X connect 0 1 4 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 5 0 1 1;
+#X restore 155 132 pd winfft_diagram;
+#X obj 133 326 winfft~ hann_array;
+#X text 51 79 Applies a window function then performs a real fast fourier
+transform;
+#X text 152 226 argument: array name;
+#X text 152 243 message: "set array_name";
+#X text 193 440 www.cooperbaker.com/pd-spectral-toolkit;
+#X connect 4 0 3 0;
+#X connect 6 0 5 0;
+#X connect 7 0 14 0;
+#X connect 14 0 4 0;
+#X connect 14 1 6 0;

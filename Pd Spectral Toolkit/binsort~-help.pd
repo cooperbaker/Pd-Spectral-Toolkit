@@ -1,0 +1,95 @@
+#N canvas 529 53 450 596 10;
+#X obj 91 552 link;
+#X obj 78 375 binsort~;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array a 64 float 3;
+#A 0 0 63 2 61 4 59 6 57 8 55 10 53 12 51 14 49 16 47 18 45 20 43 22
+41 24 39 26 37 28 35 30 33 32 31 34 29 36 27 38 25 40 23 42 21 44 19
+46 17 48 15 50 13 52 11 54 9 56 7 58 5 60 3 62 1;
+#X coords 0 64 64 0 64 64 1 0 0;
+#X restore 78 255 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array b 64 float 3;
+#A 0 0 0.015625 0.0625 0.140625 0.25 0.390625 0.5625 0.765625 1 1.26562
+1.5625 1.89062 2.25 2.64062 3.0625 3.51562 4 4.51562 5.0625 5.64062
+6.25 6.89062 7.5625 8.26562 9 9.76562 10.5625 11.3906 12.25 13.1406
+14.0625 15.0156 16 17.0156 18.0625 19.1406 20.25 21.3906 22.5625 23.7656
+25 26.2656 27.5625 28.8906 30.25 31.6406 33.0625 34.5156 36 37.5156
+39.0625 40.6406 42.25 43.8906 45.5625 47.2656 49 50.7656 52.5625 54.3906
+56.25 58.1406 60.0625 62.0156;
+#X coords 0 64 64 0 64 64 1 0 0;
+#X restore 162 255 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array b_sort 64 float 3;
+#A 0 0 62.0156 0.0625 58.1406 0.25 54.3906 0.5625 50.7656 1 47.2656
+1.5625 43.8906 2.25 40.6406 3.0625 37.5156 4 34.5156 5.0625 31.6406
+6.25 28.8906 7.5625 26.2656 9 23.7656 10.5625 21.3906 12.25 19.1406
+14.0625 17.0156 16 15.0156 18.0625 13.1406 20.25 11.3906 22.5625 9.76562
+25 8.26562 27.5625 6.89062 30.25 5.64062 33.0625 4.51562 36 3.51562
+39.0625 2.64062 42.25 1.89062 45.5625 1.26562 49 0.765625 52.5625 0.390625
+56.25 0.140625 60.0625 0.015625;
+#X coords 0 64 64 0 64 64 1 0 0;
+#X restore 180 466 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array a_sort 64 float 3;
+#A 0 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46
+47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63;
+#X coords 0 64 64 0 64 64 1 0 0;
+#X restore 78 466 graph;
+#X obj 78 327 tabreceive~ a;
+#X obj 162 327 tabreceive~ b;
+#X obj 78 429 tabwrite~ a_sort;
+#X obj 282 400 bang~;
+#X obj 180 429 tabwrite~ b_sort;
+#X msg 282 348 descending;
+#X msg 282 327 ascending;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array indices 64 float 3;
+#A 0 0 63 2 61 4 59 6 57 8 55 10 53 12 51 14 49 16 47 18 45 20 43 22
+41 24 39 26 37 28 35 30 33 32 31 34 29 36 27 38 25 40 23 42 21 44 19
+46 17 48 15 50 13 52 11 54 9 56 7 58 5 60 3 62 1;
+#X coords 0 64 64 0 64 64 1 0 0;
+#X restore 282 466 graph;
+#X text 110 107 inlet 1: dataset a;
+#X text 110 124 inlet 2: dataset b;
+#X text 111 141 outlet 1: sorted dataset a;
+#X text 50 62 Sorts spectral data according to left inlet values and
+outputs the data in ascending or descending order;
+#X text 112 192 messages: "ascending" or "descending";
+#X text 112 209 arguments: "ascending" or "descending";
+#X obj 21 49 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 321 18 graph;
+#X obj 34 20 binsort~;
+#X text 102 19 Bin Sort;
+#X text 111 158 outlet 2: dataset b sorted by a;
+#X obj 282 429 tabwrite~ indices;
+#X text 111 175 outlet 3: dataset indices sorted by a;
+#X connect 1 0 8 0;
+#X connect 1 1 10 0;
+#X connect 1 2 25 0;
+#X connect 6 0 1 0;
+#X connect 7 0 1 1;
+#X connect 9 0 8 0;
+#X connect 9 0 10 0;
+#X connect 9 0 25 0;
+#X connect 11 0 1 0;
+#X connect 12 0 1 0;

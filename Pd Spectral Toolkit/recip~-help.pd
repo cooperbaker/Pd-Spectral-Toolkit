@@ -1,0 +1,34 @@
+#N canvas 543 51 455 434 10;
+#X obj 99 384 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#X obj 195 306 monitor~;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X floatatom 195 328 8 0 0 0 - - -;
+#X obj 37 28 recip~;
+#X text 90 27 Reciprocal;
+#X text 143 79 Calculates reciprocal values;
+#X text 175 156 outlet: reciprocal;
+#X text 175 139 inlet: signal;
+#X obj 195 267 recip~;
+#X obj 195 231 sig~ 4;
+#X connect 2 0 4 0;
+#X connect 10 0 2 0;
+#X connect 11 0 10 0;

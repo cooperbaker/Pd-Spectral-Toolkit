@@ -1,0 +1,51 @@
+#N canvas 541 51 455 434 10;
+#X obj 118 393 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X obj 37 28 binmonitor~;
+#X text 120 27 Bin Monitor;
+#X obj 91 305 binmonitor~;
+#X text 34 79 Outputs a float representing the value of a specific
+sample index in the signal vector. Useful for looking at values of
+particular bins in spectral data.;
+#X text 165 155 inlet 1: spectral data;
+#X text 165 172 inlet 2: bin number;
+#X text 166 190 outlet: bin value float;
+#X text 166 206 argument: bin number;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array binmon_data 64 float 3;
+#A 0 0.533356 0.515738 0.621367 0.0443067 0.268873 0.560048 0.222974
+0.931225 0.0469798 0.608695 0.216356 0.516293 0.882638 0.116993 0.367818
+0.0923499 0.451697 0.0727271 0.514709 0.855799 0.598709 0.550842 0.448235
+0.0862968 0.594737 0.518126 0.546272 0.576437 0.145173 0.887901 0.15618
+0.311442 0.147547 0.824712 0.727611 0.398848 0.199338 0.299009 0.695328
+0.248193 0.855793 0.891839 0.11201 0.00070551 0.637731 0.849533 0.0310709
+0.208989 0.789361 0.388392 0.63947 0.766714 0.786094 0.249374 0.140521
+0.0883009 0.592355 0.502785 0.386712 0.53861 0.669393 0.602963 0.26251
+0.112629;
+#X coords 0 1 63 0 128 64 1 0 0;
+#X restore 250 274 graph;
+#X floatatom 154 285 5 0 0 0 - - -;
+#X floatatom 91 327 5 0 0 0 - - -;
+#X obj 91 263 tabreceive~ binmon_data;
+#X connect 5 0 13 0;
+#X connect 12 0 5 1;
+#X connect 14 0 5 0;

@@ -1,0 +1,75 @@
+#N canvas 566 41 457 663 10;
+#X obj 121 627 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array valley_data_a 64 float 1;
+#A 0 36 41 48 51 55 57 54 50 46 52 57 52 47 35 46 39 41 37 33 27 33
+35 39 39 36 29 34 33 34 24 22 9 20 14 23 27 28 12 10 15 4 15 29 34
+31 15 19 22 15 17 15 16 17 21 26 15 11 15 14 7 9 10 12 10;
+#X coords 0 64 63 0 128 64 1 0 0;
+#X restore 110 271 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array valley_data_b 64 float 1;
+#A 0 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46
+47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63;
+#X coords 0 64 63 0 128 64 1 0 0;
+#X restore 244 271 graph;
+#X obj 213 436 bang~;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array valleys_a 64 float 1;
+#A 0 0 0 0 0 0 0 0 0 46 0 0 0 0 35 0 39 0 0 0 27 0 0 0 0 0 29 0 33
+0 0 0 9 0 14 0 0 0 0 10 0 4 0 0 0 0 15 0 0 15 0 15 0 0 0 0 0 11 0 0
+7 0 0 0 0;
+#X coords 0 64 63 0 128 64 1 0 0;
+#X restore 110 541 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array valleys_b 64 float 1;
+#A 0 0 0 0 0 0 0 0 0 8 0 0 0 0 13 0 15 0 0 0 19 0 0 0 0 0 25 0 27 0
+0 0 31 0 33 0 0 0 0 38 0 40 0 0 0 0 45 0 0 48 0 50 0 0 0 0 0 56 0 0
+59 0 0 0 0;
+#X coords 0 64 63 0 128 64 1 0 0;
+#X restore 244 541 graph;
+#X text 152 149 inlet 2: spectral data b;
+#X text 152 132 inlet 1: spectral data a;
+#X text 153 201 outlet 2: associated data b;
+#X floatatom 201 415 5 0 0 0 - - -;
+#X obj 37 28 valleys~;
+#X text 101 27 Valleys;
+#X obj 156 436 valleys~;
+#X obj 156 367 tabreceive~ valley_data_a;
+#X obj 178 391 tabreceive~ valley_data_b;
+#X obj 201 465 tabwrite~ valleys_b;
+#X obj 156 489 tabwrite~ valleys_a;
+#X text 153 166 inlet 3: number of valleys;
+#X text 153 183 outlet 1: data a valleys;
+#X text 153 218 argument: number of valleys;
+#X text 58 73 Finds valleys in inlet 1 spectral data \, outputs valley
+values and associated data from inlet 2 Optionally detects an arbitrary
+number of highest valleys;
+#X connect 5 0 17 0;
+#X connect 5 0 18 0;
+#X connect 11 0 14 2;
+#X connect 14 0 18 0;
+#X connect 14 1 17 0;
+#X connect 15 0 14 0;
+#X connect 16 0 14 1;

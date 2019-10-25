@@ -1,0 +1,47 @@
+#N canvas 525 47 455 434 10;
+#X obj 110 387 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#X obj 173 313 monitor~;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X floatatom 173 335 5 0 0 0 - - -;
+#X floatatom 173 226 5 0 0 0 - - -;
+#X obj 173 245 sig~;
+#X floatatom 230 226 5 0 0 0 - - -;
+#X obj 230 245 sig~;
+#X obj 230 313 monitor~;
+#X floatatom 230 335 5 0 0 0 - - -;
+#X obj 37 28 cmplxsqrt~;
+#X text 108 27 Complex Square Root;
+#X text 153 123 inlet 1: real value;
+#X text 153 140 inlet 2: imaginary value;
+#X obj 173 279 cmplxsqrt~;
+#X text 154 174 outlet 2: imaginary result;
+#X text 154 157 outlet 1: real result;
+#X text 49 80 Calculates the square root of a complex number and outputs
+the result;
+#X connect 2 0 4 0;
+#X connect 5 0 6 0;
+#X connect 6 0 15 0;
+#X connect 7 0 8 0;
+#X connect 8 0 15 1;
+#X connect 9 0 10 0;
+#X connect 15 0 2 0;
+#X connect 15 1 9 0;

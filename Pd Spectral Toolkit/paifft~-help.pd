@@ -1,0 +1,103 @@
+#N canvas 535 42 447 572 10;
+#X obj 108 531 link;
+#X obj 24 57 cnv 2 400 2 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#N canvas 234 138 200 239 (subpatch) 0;
+#X msg 2 155 \; pd dsp \$1 \;;
+#X obj 2 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X text 20 122 DSP on/off;
+#X obj 68 30 loadbang;
+#X msg 68 87 1;
+#X obj 2 30 r pd;
+#X obj 2 59 route dsp;
+#X msg 2 87 set \$1;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
+#X coords 0 1 100 -1 85 19 1 0 120;
+#X restore 324 26 graph;
+#X text 51 79 Performs a backward real fast fourier transform then
+rotates the signal vector \, applies a window function \, and normalizes
+output;
+#X text 127 176 inlet 1: real values;
+#X text 127 193 inlet 2: imaginary values;
+#X text 128 210 inlet 3: rotation amount in samples;
+#X text 128 227 outlet: audio signal;
+#X obj 176 368 bang~;
+#N canvas 0 22 450 300 fft_data 0;
+#X obj 187 146 outlet~;
+#X obj 237 146 outlet~;
+#X obj 187 76 ctltosig~;
+#X obj 187 46 phasor~ 688.8;
+#X obj 187 110 pafft~ hann_func;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;
+#X connect 4 1 1 0;
+#X restore 162 303 pd fft_data;
+#X obj 162 397 tabwrite~ pvifft_scope;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array rect_win 64 float 1;
+#A 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+#X coords 0 1.2 63 0 63 16 1 0 0;
+#X restore 279 307 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array pvifft_scope 64 float 1;
+#A 0 0.514952 0 0.577428 0 0.639904 0 0.70238 0 0.764856 0 0.827333
+0 0.889809 0 0.952285 0 -0.985239 0 -0.922763 0 -0.860286 0 -0.79781
+0 -0.735334 0 -0.672858 0 -0.610382 0 -0.547905 0 -0.485429 0 -0.422953
+0 -0.360477 0 -0.298001 0 -0.235525 0 -0.173048 0 -0.110572 0 -0.0480959
+0 0.0143802 0 0.0768564 0 0.139333 0 0.201809 0 0.264285 0 0.326761
+0 0.389237 0 0.451714 0;
+#X coords 0 1 63 -1 128 64 1 0 0;
+#X restore 162 445 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array hann_win 64 float 1;
+#A 0 0 0.00248459 0.00991374 0.0222136 0.0392619 0.0608892 0.0868806
+0.116978 0.150882 0.188255 0.228727 0.271895 0.31733 0.36458 0.413176
+0.462635 0.512465 0.562172 0.61126 0.659243 0.705644 0.75 0.791872
+0.830843 0.866526 0.898566 0.926645 0.950484 0.969846 0.984539 0.994415
+0.999378 0.999378 0.994415 0.984539 0.969846 0.950484 0.926645 0.898566
+0.866526 0.830843 0.791872 0.75 0.705644 0.659243 0.611261 0.562172
+0.512465 0.462635 0.413176 0.36458 0.317329 0.271895 0.228727 0.188255
+0.150882 0.116978 0.0868806 0.0608892 0.0392619 0.0222136 0.00991374
+0.00248462 0;
+#X coords 0 1 63 0 63 16 1 0 0;
+#X restore 279 340 graph;
+#X msg 79 303 set hann_win;
+#X obj 37 28 paifft~;
+#X text 95 27 Phase Aligned IFFT;
+#N canvas 983 42 242 339 paifft_diagram 1;
+#X obj 32 18 inlet~;
+#X obj 74 18 inlet~;
+#X obj 32 78 rifft~;
+#X obj 32 129 rotate~;
+#X obj 32 196 *~;
+#X obj 47 224 r window_size;
+#X obj 32 258 /~;
+#X obj 32 295 outlet~;
+#X obj 116 18 inlet;
+#X obj 47 167 tabreceive~ rect_win;
+#X connect 0 0 2 0;
+#X connect 1 0 2 1;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 1;
+#X connect 6 0 7 0;
+#X connect 8 0 3 1;
+#X connect 9 0 4 1;
+#X restore 152 140 pd paifft_diagram;
+#X obj 162 340 paifft~ rect_win;
+#X text 128 244 argument: array_name (window array);
+#X text 128 260 message: "set array_name";
+#X connect 8 0 10 0;
+#X connect 9 0 18 0;
+#X connect 9 1 18 1;
+#X connect 14 0 18 0;
+#X connect 18 0 10 0;
