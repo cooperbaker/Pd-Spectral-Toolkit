@@ -171,11 +171,11 @@ pd_spectral_toolkit.pd_darwin: $(OBJECTS)
 #-------------------------------------------------------------------------------
 # Linux Build
 #-------------------------------------------------------------------------------
-linux: pd_spectral_toolkit.l_ia64
+linux: pd_spectral_toolkit.pd_linux
 
 linux32: pd_spectral_toolkit.l_i386
 
-.SUFFIXES: .l_i386 .l_ia64
+.SUFFIXES: .l_i386 .pd_linux
 
 LINUXCFLAGS = \
 	-DPD \
@@ -205,16 +205,16 @@ pd_spectral_toolkit.l_i386: $(OBJECTS)
 	rm -f *.o
 	mv pd_spectral_toolkit.l_i386 ./Pd\ Spectral\ Toolkit
 
-pd_spectral_toolkit.l_ia64: $(OBJECTS)
+pd_spectral_toolkit.pd_linux: $(OBJECTS)
 	ld \
 	-lc \
 	-lm \
 	-shared \
-	-o pd_spectral_toolkit.l_ia64 \
+	-o pd_spectral_toolkit.pd_linux \
 	$(OBJECTS)
-	strip --strip-unneeded pd_spectral_toolkit.l_ia64
+	strip --strip-unneeded pd_spectral_toolkit.pd_linux
 	rm -f *.o
-	mv pd_spectral_toolkit.l_ia64 ./Pd\ Spectral\ Toolkit
+	mv pd_spectral_toolkit.pd_linux ./Pd\ Spectral\ Toolkit
 
 
 #-------------------------------------------------------------------------------
@@ -225,11 +225,11 @@ clean: ; rm -f \
 	*.obj \
 	*.dll \
 	*.l_i386 \
-	*.l_ia64 \
+	*.pd_linux \
 	*.pd_darwin \
 	./Pd\ Spectral\ Toolkit/*.dll \
 	./Pd\ Spectral\ Toolkit/*.l_i386 \
-	./Pd\ Spectral\ Toolkit/*.l_ia64 \
+	./Pd\ Spectral\ Toolkit/*.pd_linux \
 	./Pd\ Spectral\ Toolkit/*.pd_darwin
 
 
